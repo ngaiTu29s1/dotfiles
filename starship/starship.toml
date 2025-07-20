@@ -1,5 +1,7 @@
 add_newline = true
 
+"$schema" = 'https://starship.rs/config-schema.json'
+
 format = """
 $username@$hostname:$directory$git_branch
 $character
@@ -22,5 +24,5 @@ symbol = "🌱 "
 style = "bold yellow"
 
 [character]
-success_symbol = "[❯](green)"
-error_symbol = "[❯](red)"
+success_symbol = "[➜](green)"
+error_symbol = "[➜](red)"
