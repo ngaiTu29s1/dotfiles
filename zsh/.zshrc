@@ -42,3 +42,6 @@ export DISABLE_AUTO_TITLE="true"
 
 # Highlight current directory
 export DEFAULT_USER=$USER
+
+# Hiển thị thông tin hệ thống khi login
+neofetch
