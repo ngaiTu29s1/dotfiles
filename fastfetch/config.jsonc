@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/fastfetch-cli/fastfetch/dev/doc/json_schema.json",
+  "logo": {
+    "source": "debian"
+  },
+  "display": {
+    "separator": ": ",
+    "key": {
+      "width": 18
+    }
+  },
+  "modules": [
+    // ===== GROUP 1: Hardware =====
+    { "type": "custom", "key": "\u001b[32m┌────────── Hardware ──────────┐\u001b[0m" },
+    { "type": "host",   "keyColor": "green" },
+    { "type": "cpu",    "showUsage": true, "showSpeed": true, "temp": true, "keyColor": "green" },
+    { "type": "gpu",    "keyColor": "green" },
+    { "type": "memory", "unit": "GiB", "showPercent": true, "keyColor": "green" },
+    { "type": "swap",   "unit": "GiB", "showPercent": true, "keyColor": "green" },
+    { "type": "command", "key": "Disk SSD", "text": "df -h / | awk 'NR==2 {print $3 \" / \" $2 \" (\" $5 \")\"}'", "keyColor": "green" },
+    { "type": "command", "key": "Disk HDD", "text": "df -h /mnt/hdd500 | awk 'NR==2 {print $3 \" / \" $2 \" (\" $5 \")\"}'", "keyColor": "green" },
+
+    // ===== GROUP 2: Software & System =====
+    { "type": "custom", "key": "\u001b[33m┌────── Software & System ─────┐\u001b[0m" },
+    { "type": "os",       "keyColor": "yellow" },
+    { "type": "kernel",   "keyColor": "yellow" },
+    { "type": "packages", "keyColor": "yellow" },
+    { "type": "shell",    "keyColor": "yellow" },
+    { "type": "terminal", "keyColor": "yellow" },
+    { "type": "uptime",   "keyColor": "yellow" },
+    { "type": "loadavg",  "keyColor": "yellow" },
+
+    // ===== GROUP 3: Fun & Misc =====
+    { "type": "custom", "key": "\u001b[35m┌────────── Fun & Misc ─────────┐\u001b[0m" },
+    { "type": "publicip", "keyColor": "magenta" },
+    { "type": "datetime", "keyColor": "magenta" }
+  ]
+}
