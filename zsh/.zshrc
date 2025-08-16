@@ -45,7 +45,6 @@ export DEFAULT_USER=$USER
 # --- Load Powerlevel10k theme config ---
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-# Show system info once when shell starts
 if command -v fastfetch >/dev/null 2>&1; then
   fastfetch
 fi
