@@ -39,7 +39,7 @@ alias gl='git pull'
 alias gp='git push'
 alias gaa='git add .'
 alias gc='git commit -m'
-
+alias bwunlock='export BW_SESSION=$(bw unlock --raw) && echo "✅ Vault unlocked and session set"'
 # Prompt fix for WSL or headless servers
 export DISABLE_AUTO_TITLE="true"
 export DEFAULT_USER=$USER
