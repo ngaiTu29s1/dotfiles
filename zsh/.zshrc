@@ -6,6 +6,8 @@ fi
 
 # Path to your oh-my-zsh installation
 export ZSH="$HOME/.oh-my-zsh"
+# Path for srcipts
+export PATH="$HOME/scripts:$PATH"
 
 # Theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
