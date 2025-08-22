@@ -118,10 +118,14 @@ def encrypt():
     print("🔒 Encrypting *.env → *.env.enc ...")
     for f in targets:
         out = Path(str(f) + ENC_SUFFIX)
+        if out.exists():
+            print(f"⏭️  Skip {f} → {out} (already exists)")
+            continue
         print(f"→ {f}  →  {out}")
         text = run_sops(["-e"], f)
         write_lf(out, text)
     print("✅ Done. Commit only *.env.enc")
+
 
 
 def decrypt():
