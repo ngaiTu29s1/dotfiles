@@ -51,3 +51,4 @@ if command -v fastfetch >/dev/null 2>&1; then
   fastfetch
 fi
 alias sops-env='python3 ~/dotfiles/scripts/sops-env.py'
+export PATH="$HOME/homelab/scripts:$PATH"
