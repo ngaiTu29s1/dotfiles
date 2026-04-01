@@ -1,0 +1,11 @@
+user-theme@gnome-shell-extensions.gcampax.github.com
+dash2dock-lite@icedman.github.com
+blur-my-shell@aunetx
+compiz-windows-effect@hermes83.github.com
+Vitals@CoreCoding.com
+CoverflowAltTab@palatis.blogspot.com
+space-bar@luchrioh
+ding@rastersoft.com
+tiling-assistant@ubuntu.com
+ubuntu-appindicators@ubuntu.com
+ubuntu-dock@ubuntu.com
