@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
+sudo -v
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 GNOME_DIR="$REPO_ROOT/desktop/gnome"
@@ -19,41 +20,41 @@ sudo apt install -y \
   git curl wget \
   dconf-cli \
   gnome-shell-extensions \
+  gnome-shell-extension-manager \
   gnome-tweaks \
   sassc libglib2.0-dev-bin imagemagick
 
 echo "==> Preparing workspace"
-rm -rf "$WORKDIR"
 mkdir -p "$WORKDIR"
 
-echo "==> Cloning MacTahoe icon theme"
-git clone --depth 1 "$ICON_REPO" "$WORKDIR/MacTahoe-icon-theme"
+if [ ! -d "$WORKDIR/MacTahoe-icon-theme/.git" ]; then
+  echo "==> Cloning MacTahoe icon theme"
+  git clone --depth 1 "$ICON_REPO" "$WORKDIR/MacTahoe-icon-theme"
+else
+  echo "==> Icon theme repo exists, skipping clone"
+fi
 
-echo "==> Installing MacTahoe icon theme"
-cd "$WORKDIR/MacTahoe-icon-theme"
-./install.sh
+if [ ! -d "$HOME/.icons/$ICON_THEME" ] && [ ! -d "$HOME/.local/share/icons/$ICON_THEME" ] && [ ! -d "/usr/share/icons/$ICON_THEME" ]; then
+  echo "==> Installing MacTahoe icon theme"
+  cd "$WORKDIR/MacTahoe-icon-theme"
+  ./install.sh
+else
+  echo "==> Icon theme already installed, skipping"
+fi
 
-echo "==> Cloning MacTahoe GTK theme"
-git clone --depth 1 "$GTK_REPO" "$WORKDIR/MacTahoe-gtk-theme"
+if [ ! -d "$WORKDIR/MacTahoe-gtk-theme/.git" ]; then
+  echo "==> Cloning MacTahoe GTK theme"
+  git clone --depth 1 "$GTK_REPO" "$WORKDIR/MacTahoe-gtk-theme"
+else
+  echo "==> GTK theme repo exists, skipping clone"
+fi
 
-echo "==> Installing MacTahoe GTK theme"
-cd "$WORKDIR/MacTahoe-gtk-theme"
-./install.sh
-
-echo "==> Creating target directories"
-mkdir -p "$HOME/.local/share/gnome-shell/extensions"
-
-echo "==> Restoring user-installed extensions"
-if [ -d "$GNOME_DIR/extensions" ]; then
-  shopt -s nullglob
-  for ext in "$GNOME_DIR/extensions"/*; do
-    base="$(basename "$ext")"
-    [ "$base" = "list.txt" ] && continue
-    [ -d "$ext" ] || continue
-    rm -rf "$HOME/.local/share/gnome-shell/extensions/$base"
-    cp -r "$ext" "$HOME/.local/share/gnome-shell/extensions/"
-  done
-  shopt -u nullglob
+if [ ! -d "$HOME/.themes/$GTK_THEME" ] && [ ! -d "$HOME/.local/share/themes/$GTK_THEME" ] && [ ! -d "/usr/share/themes/$GTK_THEME" ]; then
+  echo "==> Installing MacTahoe GTK theme"
+  cd "$WORKDIR/MacTahoe-gtk-theme"
+  ./install.sh
+else
+  echo "==> GTK theme already installed, skipping"
 fi
 
 echo "==> Restoring dconf"
@@ -64,14 +65,16 @@ gsettings set org.gnome.desktop.interface gtk-theme "$GTK_THEME" || true
 gsettings set org.gnome.desktop.interface icon-theme "$ICON_THEME" || true
 gsettings set org.gnome.desktop.interface cursor-theme "$CURSOR_THEME" || true
 
-echo "==> Enabling User Themes extension"
+echo "==> Enabling User Themes"
 gnome-extensions enable user-theme@gnome-shell-extensions.gcampax.github.com 2>/dev/null || true
 
-echo "==> Applying GNOME Shell theme if schema exists"
+echo "==> Applying shell theme if schema exists"
 if gsettings writable org.gnome.shell.extensions.user-theme name >/dev/null 2>&1; then
   gsettings set org.gnome.shell.extensions.user-theme name "$SHELL_THEME" || true
 fi
 
+echo "==> Restoring right-side window buttons"
+gsettings set org.gnome.desktop.wm.preferences button-layout ':minimize,maximize,close'
+
 echo
-echo "==> Restore complete"
-echo "Recommended: logout/login once to fully apply GNOME Shell settings."
+echo "==> Done. Logout/login once."
