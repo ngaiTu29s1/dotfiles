@@ -52,3 +52,19 @@ if command -v fastfetch >/dev/null 2>&1; then
 fi
 alias sops-env='python3 ~/dotfiles/scripts/sops-env.py'
 export PATH="$HOME/homelab/scripts:$PATH"
+
+# fnm
+FNM_PATH="/home/tu/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="$FNM_PATH:$PATH"
+  eval "$(fnm env --shell zsh)"
+fi
+
+# fnm
+eval "$(fnm env --use-on-cd)"
+
+. "$HOME/.local/bin/env"
+
+
+# Added by Antigravity CLI installer
+export PATH="/home/tu/.local/bin:$PATH"
