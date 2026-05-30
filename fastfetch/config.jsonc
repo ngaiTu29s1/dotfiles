@@ -1,38 +1,188 @@
 {
   "$schema": "https://raw.githubusercontent.com/fastfetch-cli/fastfetch/dev/doc/json_schema.json",
+
   "logo": {
-    "source": "debian"
-  },
-  "display": {
-    "separator": ": ",
-    "key": {
-      "width": 18
+    "source": "ubuntu_small",
+    "padding": {
+      "top": 1,
+      "left": 2,
+      "right": 3
     }
   },
+
+  "display": {
+    "separator": "  ",
+    "key": {
+      "width": 14
+    }
+  },
+
   "modules": [
-    // ===== GROUP 1: Hardware =====
-    { "type": "custom", "key": "\u001b[32m┌────────── Hardware ──────────┐\u001b[0m" },
-    { "type": "host",   "keyColor": "green" },
-    { "type": "cpu",    "showUsage": true, "showSpeed": true, "temp": true, "keyColor": "green" },
-    { "type": "gpu",    "keyColor": "green" },
-    { "type": "memory", "unit": "GiB", "showPercent": true, "keyColor": "green" },
-    { "type": "swap",   "unit": "GiB", "showPercent": true, "keyColor": "green" },
-    { "type": "command", "key": "Disk SSD", "text": "df -h / | awk 'NR==2 {print $3 \" / \" $2 \" (\" $5 \")\"}'", "keyColor": "green" },
-    { "type": "command", "key": "Disk HDD", "text": "df -h /mnt/hdd500 | awk 'NR==2 {print $3 \" / \" $2 \" (\" $5 \")\"}'", "keyColor": "green" },
+    "break",
 
-    // ===== GROUP 2: Software & System =====
-    { "type": "custom", "key": "\u001b[33m┌────── Software & System ─────┐\u001b[0m" },
-    { "type": "os",       "keyColor": "yellow" },
-    { "type": "kernel",   "keyColor": "yellow" },
-    { "type": "packages", "keyColor": "yellow" },
-    { "type": "shell",    "keyColor": "yellow" },
-    { "type": "terminal", "keyColor": "yellow" },
-    { "type": "uptime",   "keyColor": "yellow" },
-    { "type": "loadavg",  "keyColor": "yellow" },
+    {
+      "type": "title",
+      "format": "{user-name}@{host-name}",
+      "keyColor": "cyan"
+    },
 
-    // ===== GROUP 3: Fun & Misc =====
-    { "type": "custom", "key": "\u001b[35m┌────────── Fun & Misc ─────────┐\u001b[0m" },
-    { "type": "publicip", "keyColor": "magenta" },
-    { "type": "datetime", "keyColor": "magenta" }
+    {
+      "type": "separator",
+      "string": "────────────────────────"
+    },
+
+    {
+      "type": "os",
+      "key": "󰣇 OS",
+      "keyColor": "blue"
+    },
+
+    {
+      "type": "host",
+      "key": "󰌢 Host",
+      "keyColor": "blue"
+    },
+
+    {
+      "type": "kernel",
+      "key": "󰒋 Kernel",
+      "keyColor": "blue"
+    },
+
+    {
+      "type": "uptime",
+      "key": "󰅐 Uptime",
+      "keyColor": "blue"
+    },
+
+    {
+      "type": "packages",
+      "key": "󰏖 Packages",
+      "keyColor": "blue"
+    },
+
+    "break",
+
+    {
+      "type": "cpu",
+      "key": "󰻠 CPU",
+      "showUsage": true,
+      "showSpeed": true,
+      "temp": true,
+      "keyColor": "green"
+    },
+
+    {
+      "type": "gpu",
+      "key": "󰢮 GPU",
+      "keyColor": "green"
+    },
+
+    {
+      "type": "command",
+      "key": "󰾲 NVIDIA",
+      "text": "nvidia-smi --query-gpu=temperature.gpu,power.draw,memory.used,memory.total --format=csv,noheader,nounits | awk -F', ' '{print $1\"°C, \"$2\"W, VRAM \"$3\"/\"$4\" MiB\"}'",
+      "keyColor": "green"
+    },
+
+    {
+      "type": "memory",
+      "key": "󰍛 RAM",
+      "unit": "GiB",
+      "showPercent": true,
+      "keyColor": "green"
+    },
+
+    {
+      "type": "swap",
+      "key": "󰓡 Swap",
+      "unit": "GiB",
+      "showPercent": true,
+      "keyColor": "green"
+    },
+
+    {
+      "type": "disk",
+      "key": "󰋊 Disk",
+      "folders": "/",
+      "keyColor": "green"
+    },
+
+    "break",
+
+    {
+      "type": "wm",
+      "key": "󰧨 WM",
+      "keyColor": "yellow"
+    },
+
+    {
+      "type": "de",
+      "key": "󰨇 DE",
+      "keyColor": "yellow"
+    },
+
+    {
+      "type": "display",
+      "key": "󰍹 Display",
+      "compactType": "original-with-refresh-rate",
+      "keyColor": "yellow"
+    },
+
+    {
+      "type": "command",
+      "key": "󰍹 Monitors",
+      "text": "xrandr --current | awk '/ connected/ {print $1\" \"$3}' | paste -sd ', ' -",
+      "keyColor": "yellow"
+    },
+
+    {
+      "type": "terminal",
+      "key": "󰆍 Terminal",
+      "keyColor": "yellow"
+    },
+
+    {
+      "type": "shell",
+      "key": "󰞷 Shell",
+      "keyColor": "yellow"
+    },
+
+    "break",
+
+    {
+      "type": "localip",
+      "key": "󰩟 Local IP",
+      "keyColor": "magenta"
+    },
+
+    {
+      "type": "command",
+      "key": "󰖟 Gateway",
+      "text": "ip route | awk '/default/ {print $3; exit}'",
+      "keyColor": "magenta"
+    },
+
+    {
+      "type": "command",
+      "key": "󰥔 Date",
+      "text": "date '+%Y-%m-%d %H:%M'",
+      "keyColor": "magenta"
+    },
+
+    {
+      "type": "command",
+      "key": "󱦟 Session",
+      "text": "echo $XDG_SESSION_TYPE",
+      "keyColor": "magenta"
+    },
+
+    "break",
+
+    {
+      "type": "colors",
+      "symbol": "circle",
+      "paddingLeft": 2
+    }
   ]
 }
