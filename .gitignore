@@ -2,4 +2,4 @@ ssh/config.private
 ssh/id_*
 *.swp
 *.bak
-ssh/config.private
+desktop/gnome/themes/
