@@ -1,0 +1,7 @@
+creation_rules:
+  - path_regex: '([A-Za-z]:)?[\\/].*[\\/]\.env(\.[A-Za-z0-9_-]+)*(\.enc)?$'
+    encrypted_regex: '^(.*)$'
+    key_groups:
+      - age:
+          - age1mkwkkl5qhn9ldfnfna03axjfsjythm8dp9ljucjrxjqm0wlrqycszy37ed
+          - age12rsww9nuay2tye63sv4n598nj8z9fak9aw9gru0rvngv8kf493lq8099zg
